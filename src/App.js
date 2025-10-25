@@ -1,22 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import Key from "./components/Key";
+import Detector from "./components/Detector";
 
 function App() {
+  const scale = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+  ];
+  const initialStatus = {};
+  scale.forEach((note) => {
+    initialStatus[note] = false;
+  });
+
+  const [note, setNote] = useState("");
+  const [isActivated, setIsActivate] = useState(initialStatus);
+
+  useEffect(() => {
+    setIsActivate(initialStatus);
+    if (note !== "") {
+      setIsActivate((prev) => ({ ...prev, [note]: true }));
+    }
+    //    console.log(note);
+    // console.log(isActivated);
+  }, [note]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Detector note={note} setNote={setNote} scale={scale} />
+        <div id="keyboard" style={{ display: "flex" }}>
+          {Object.entries(isActivated).map(([key, value]) => (
+            <Key note={key} isActivated={value} />
+          ))}
+        </div>
       </header>
     </div>
   );
