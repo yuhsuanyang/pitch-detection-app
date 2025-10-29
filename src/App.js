@@ -4,7 +4,7 @@ import Key from "./components/Key";
 import Detector from "./components/Detector";
 
 function App() {
-  const scale = [
+  const noteNames = [
     "C",
     "C#",
     "D",
@@ -18,8 +18,13 @@ function App() {
     "A#",
     "B",
   ];
+  const octaves = [1, 2, 3];
+  const scales = octaves.flatMap((octave) =>
+    noteNames.map((note) => `${octave}${note}`),
+  );
+  console.log(scales);
   const initialStatus = {};
-  scale.forEach((note) => {
+  scales.forEach((note) => {
     initialStatus[note] = false;
   });
 
@@ -38,7 +43,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Detector note={note} setNote={setNote} scale={scale} />
+        {/* <Detector note={note} setNote={setNote} scale={scales} />*/}
         <div id="keyboard" style={{ display: "flex" }}>
           {Object.entries(isActivated).map(([key, value]) => (
             <Key note={key} isActivated={value} />

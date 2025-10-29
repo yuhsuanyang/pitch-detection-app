@@ -3,7 +3,7 @@ import ml5 from "ml5";
 
 function Detector({ note, setNote, scale }) {
   const [pitch, setPitch] = useState(null);
-  //`  const [note, setNote] = useState("");
+  // const [frequency, setFrequency] = useState("");
   const audioContextRef = useRef();
   const micStreamRef = useRef();
   const pitchRef = useRef();
@@ -49,6 +49,7 @@ function Detector({ note, setNote, scale }) {
           console.error(err);
         } else if (frequency) {
           const midi = freqToMidi(frequency.toFixed(2));
+          // setFrequency(frequency.toFixed(2));
           setPitch(midi);
           setNote(scale[midi % 12]);
         }

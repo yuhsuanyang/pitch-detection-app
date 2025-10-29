@@ -25,7 +25,8 @@ function Key({ note, isActivated }) {
     B: new KeyInfo("whiteRight", 3.75),
   };
   //  const originalColor = noteToKeys[props.note].color;
-  const originalColor = noteToKeys[note].color;
+  const noteName = note.replace(/[0-9]/g, "");
+  const originalColor = noteToKeys[noteName].color;
   const [color, setColor] = useState(originalColor);
   const whiteKeyLength = 280;
   const blackKeyLength = whiteKeyLength * 0.68;
@@ -65,7 +66,7 @@ function Key({ note, isActivated }) {
   return (
     <div
       style={{
-        transform: `translateX(-${noteToKeys[note].offsetFactor * keyWidth}px)`,
+        transform: `translateX(-${noteToKeys[noteName].offsetFactor * keyWidth}px)`,
       }}
     >
       <svg
@@ -80,7 +81,7 @@ function Key({ note, isActivated }) {
         }}
       >
         <polygon
-          points={points[noteToKeys[note].keyType]}
+          points={points[noteToKeys[noteName].keyType]}
           fill={color}
           stroke="black"
         />
