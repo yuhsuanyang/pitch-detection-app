@@ -5,6 +5,7 @@ import Detector from "./components/Detector";
 
 function App() {
   const noteNames = [
+    // const scales = [
     "C",
     "C#",
     "D",

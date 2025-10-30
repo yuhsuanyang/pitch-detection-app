@@ -26,6 +26,10 @@ function Key({ note, isActivated }) {
   };
   //  const originalColor = noteToKeys[props.note].color;
   const noteName = note.replace(/[0-9]/g, "");
+  //  const noteName = note;
+  const group = parseInt(note.replace(/[^0-9]/g, ""), 10) - 1;
+  const offsetFactor = noteToKeys[noteName].offsetFactor + group * 3.75;
+  console.log(offsetFactor);
   const originalColor = noteToKeys[noteName].color;
   const [color, setColor] = useState(originalColor);
   const whiteKeyLength = 280;
@@ -66,7 +70,7 @@ function Key({ note, isActivated }) {
   return (
     <div
       style={{
-        transform: `translateX(-${noteToKeys[noteName].offsetFactor * keyWidth}px)`,
+        transform: `translateX(-${offsetFactor * keyWidth}px)`,
       }}
     >
       <svg
