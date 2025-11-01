@@ -18,9 +18,9 @@ function App() {
     "A#",
     "B",
   ];
-  const octaves = [1, 2, 3, 4];
+  const octaves = [3, 4, 5, 6];
   const scales = octaves.flatMap((octave) =>
-    noteNames.map((note) => `${octave}${note}`),
+    noteNames.map((note) => `${note}${octave}`),
   );
   const initialStatus = {};
   scales.forEach((note) => {

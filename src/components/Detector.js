@@ -14,9 +14,9 @@ function Detector({ note, setNote, scale }) {
   }
 
   function midiToNote(m) {
-    const octave = Math.max(1, Math.floor(m / 12) - 3);
+    const octave = Math.max(3, Math.floor(m / 12) - 1);
     const noteName = scale[m % 12];
-    return `${octave}${noteName}`;
+    return `${noteName}${octave}`;
   }
   useEffect(() => {
     const initMicAndPitch = async () => {
