@@ -5,7 +5,6 @@ import Detector from "./components/Detector";
 
 function App() {
   const noteNames = [
-    // const scales = [
     "C",
     "C#",
     "D",
@@ -19,11 +18,10 @@ function App() {
     "A#",
     "B",
   ];
-  const octaves = [1, 2, 3];
+  const octaves = [1, 2, 3, 4];
   const scales = octaves.flatMap((octave) =>
     noteNames.map((note) => `${octave}${note}`),
   );
-  console.log(scales);
   const initialStatus = {};
   scales.forEach((note) => {
     initialStatus[note] = false;
@@ -37,15 +35,18 @@ function App() {
     if (note !== "") {
       setIsActivate((prev) => ({ ...prev, [note]: true }));
     }
-    //    console.log(note);
     // console.log(isActivated);
   }, [note]);
 
   return (
     <div className="App">
       <header className="App-header">
-        {/* <Detector note={note} setNote={setNote} scale={scales} />*/}
-        <div id="keyboard" style={{ display: "flex" }}>
+        <h1>Pictch Detection </h1>
+        <Detector note={note} setNote={setNote} scale={noteNames} />
+        <div
+          id="keyboard"
+          style={{ display: "flex", position: "relative", left: "20%" }}
+        >
           {Object.entries(isActivated).map(([key, value]) => (
             <Key note={key} isActivated={value} />
           ))}

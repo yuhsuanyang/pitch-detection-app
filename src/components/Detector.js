@@ -13,6 +13,11 @@ function Detector({ note, setNote, scale }) {
     return m;
   }
 
+  function midiToNote(m) {
+    const octave = Math.max(1, Math.floor(m / 12) - 3);
+    const noteName = scale[m % 12];
+    return `${octave}${noteName}`;
+  }
   useEffect(() => {
     const initMicAndPitch = async () => {
       try {
@@ -51,7 +56,7 @@ function Detector({ note, setNote, scale }) {
           const midi = freqToMidi(frequency.toFixed(2));
           // setFrequency(frequency.toFixed(2));
           setPitch(midi);
-          setNote(scale[midi % 12]);
+          setNote(midiToNote(midi));
         }
         requestAnimationFrame(getPitch);
       });
@@ -61,8 +66,7 @@ function Detector({ note, setNote, scale }) {
   }, []);
   return (
     <div>
-      <p>{pitch ? `${pitch} Hz` : "Listening..."}</p>
-      <p>{note} </p>
+      <p>{pitch ? `Detected Pitch: ${pitch} Hz ${note}` : "Listening..."}</p>
     </div>
   );
 }

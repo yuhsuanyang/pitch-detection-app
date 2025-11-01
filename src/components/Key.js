@@ -29,7 +29,7 @@ function Key({ note, isActivated }) {
   //  const noteName = note;
   const group = parseInt(note.replace(/[^0-9]/g, ""), 10) - 1;
   const offsetFactor = noteToKeys[noteName].offsetFactor + group * 3.75;
-  console.log(offsetFactor);
+  //  console.log(offsetFactor);
   const originalColor = noteToKeys[noteName].color;
   const [color, setColor] = useState(originalColor);
   const whiteKeyLength = 280;
