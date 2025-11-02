@@ -3,7 +3,7 @@ import ml5 from "ml5";
 
 function Detector({ note, setNote, scale }) {
   const [pitch, setPitch] = useState(null);
-  //`  const [note, setNote] = useState("");
+  // const [frequency, setFrequency] = useState("");
   const audioContextRef = useRef();
   const micStreamRef = useRef();
   const pitchRef = useRef();
@@ -13,6 +13,11 @@ function Detector({ note, setNote, scale }) {
     return m;
   }
 
+  function midiToNote(m) {
+    const octave = Math.max(3, Math.floor(m / 12) - 1);
+    const noteName = scale[m % 12];
+    return `${noteName}${octave}`;
+  }
   useEffect(() => {
     const initMicAndPitch = async () => {
       try {
@@ -49,8 +54,9 @@ function Detector({ note, setNote, scale }) {
           console.error(err);
         } else if (frequency) {
           const midi = freqToMidi(frequency.toFixed(2));
+          // setFrequency(frequency.toFixed(2));
           setPitch(midi);
-          setNote(scale[midi % 12]);
+          setNote(midiToNote(midi));
         }
         requestAnimationFrame(getPitch);
       });
@@ -60,8 +66,7 @@ function Detector({ note, setNote, scale }) {
   }, []);
   return (
     <div>
-      <p>{pitch ? `${pitch} Hz` : "Listening..."}</p>
-      <p>{note} </p>
+      <p>{pitch ? `Detected Pitch: ${pitch} Hz ${note}` : "Listening..."}</p>
     </div>
   );
 }
